@@ -1,115 +1,117 @@
-# 来源格式与验证边界
+# Source formats and validation scope
 
-CLI 使用 Node.js 22.13 及以上版本的内置模块。历史读取不请求网络，不启动模型，不修改原应用文件；SQLite 使用 `DatabaseSync(..., {readOnly: true})`。测试在自动清理的临时目录中生成合成记录，不使用真实聊天作为测试材料。
+**English** | [简体中文](providers.zh-CN.md)
 
-| `--source` | 默认数据位置 | 读取范围 |
+The CLI uses built-in modules in Node.js 22.13 or newer. Reading history does not make network requests, start a model, or modify the source application's files. SQLite connections use `DatabaseSync(..., {readOnly: true})`. Tests create synthetic records in temporary directories that are cleaned up automatically; real conversations are not used as fixtures.
+
+| `--source` | Default location | Reading scope |
 | --- | --- | --- |
-| `claude` | `~/.claude/projects/<项目>/<id>.jsonl` | Claude Code 主会话；提问索引来自 `history.jsonl` |
-| `codex` | `~/.codex/sessions/**/rollout-*.jsonl` | Codex 事件与原始消息；标题及提问索引来自同一根目录 |
-| `grok` | `~/.grok/sessions/<编码项目>/<id>/updates.jsonl` | Grok ACP 会话更新流，元信息来自 `summary.json` |
-| `workbuddy` | `~/.workbuddy/projects/<项目>/<id>.jsonl` | WorkBuddy 主会话，`workbuddy.db` 用于补充标题和删除状态 |
-| `kimi` | `~/.kimi-code`、`~/.kimi`、Kimi Desktop 的本地运行时目录 | 新版 Code／Desktop 的 wire 协议与旧版 CLI 上下文 |
-| `zcode` | `~/.zcode/cli/db/db.sqlite` | ZCode 的 `session`、`message`、`part` 表；排除有 `parent_id` 的子代理 |
-| `trae` | TRAE 用户数据根的 `User/*Storage/.../state.vscdb` | CLI 读取旧版 Memento 会话；当前 SOLO／TraeWork 使用[只读界面流程](trae-ui.md) |
+| `claude` | `~/.claude/projects/<project>/<id>.jsonl` | Main Claude Code sessions; prompt index from `history.jsonl` |
+| `codex` | `~/.codex/sessions/**/rollout-*.jsonl` | Codex events and raw messages; title and prompt indexes in the same data root |
+| `grok` | `~/.grok/sessions/<encoded-project>/<id>/updates.jsonl` | Grok ACP session updates, with metadata from `summary.json` |
+| `workbuddy` | `~/.workbuddy/projects/<project>/<id>.jsonl` | Main WorkBuddy sessions; `workbuddy.db` supplies titles and deletion state |
+| `kimi` | `~/.kimi-code`, `~/.kimi`, and Kimi Desktop's local runtime directory | Wire protocol for newer Code / Desktop versions and context files for the older CLI |
+| `zcode` | `~/.zcode/cli/db/db.sqlite` | ZCode `session`, `message`, and `part` tables; excludes subagents with `parent_id` |
+| `trae` | `User/*Storage/.../state.vscdb` under a TRAE user data root | CLI reads legacy Memento sessions; current SOLO / TraeWork uses the [read-only UI workflow](trae-ui.md) |
 
-数据位置按格式识别，不代表同名产品的所有历史版本、云端会话或浏览器缓存都已兼容。`list --source X --json` 可确认当前 CLI 发现的会话；标准错误中的“不支持”诊断不能等同于“没有历史”。
+Paths are recognized by their storage formats. This does not establish compatibility with every version of a similarly named product, cloud-only sessions, or browser caches. Use `list --source X --json` to inspect the sessions the CLI discovers. An "unsupported" diagnostic on standard error does not mean that no history exists.
 
-## 自定义目录与命令约定
+## Custom directories and command behavior
 
-- `--home /path/to/home` 替换所有默认路径中的用户目录，适合备份目录和隔离测试。
-- `--source-root /path/to/data --source X` 直接指定该工具的数据根，不能与 `--source all` 一起使用。例如 Grok 指向包含 `sessions` 的目录，ZCode 指向包含 `cli/db/db.sqlite` 的目录，TRAE 指向包含 `User` 的用户数据目录。
-- 不自动使用 `CODEX_HOME`、`GROK_HOME` 等来源环境变量；迁移过的目录需要明确传入 `--source-root`。
-- Kimi 的根目录还可以指向 Desktop 用户数据目录或 `daimon-share`，适配器会识别其中已知的运行时布局。
-- 项目按路径子串匹配，忽略大小写；绝对路径存在别名时会尝试解析符号链接。`--cwd` 使用调用命令时的工作目录。
-- 时间参数按本地时区解析；`--until 2026-01-02` 是当天 00:00，不代表整天。列表按会话时间跨度筛选，搜索按匹配消息时间筛选。无消息时间的格式用会话最近时间作为搜索依据。
-- 默认搜索用户提问。Claude／Codex 已有提问索引的会话以索引为准；缺索引会话及其他来源读取用户消息。`--content` 搜索用户和助手正文。
-- `last` 根据每个会话的最近活动时间跳过默认 120 秒内活跃的会话。全部活跃时会报错，`--grace 0` 可明确包含它们。SQLite 来源使用会话时间，不把整个数据库的修改时间当成每个会话的活动时间。
+- `--home /path/to/home` replaces the user home in all default paths, which is useful for backups and isolated tests.
+- `--source-root /path/to/data --source X` selects one tool's data root and cannot be combined with `--source all`. For example, the Grok root contains `sessions`, the ZCode root contains `cli/db/db.sqlite`, and the TRAE user data root contains `User`.
+- Source environment variables such as `CODEX_HOME` and `GROK_HOME` are not used automatically. Specify moved data directories with `--source-root`.
+- A Kimi root may also point to the Desktop user data directory or `daimon-share`; the adapter recognizes the known runtime layouts within it.
+- Project filters use case-insensitive path substrings. For absolute paths with aliases, the reader also tries resolving symbolic links. `--cwd` uses the directory where the command is invoked.
+- Times use the local time zone. `--until 2026-01-02` means 00:00 at the start of that date, not the whole day. Lists filter by session time span; searches filter by matching message timestamps. Formats without message timestamps use the session's latest time.
+- Search targets user prompts by default. Claude / Codex sessions with prompt indexes use those indexes; other sessions use user messages from the conversation. `--content` searches user and assistant text.
+- `last` uses each session's latest activity to skip sessions active within the default 120 seconds. It fails if all matches are active; `--grace 0` explicitly includes them. SQLite sources use per-session times rather than the modification time of the entire database.
 
 ## Claude Code
 
-JSONL 的 `type` 为 `user`／`assistant`，正文位于 `message.content` 的字符串或 `text` 内容块。默认忽略 `isSidechain`、命令回显和已知系统注入；主项目目录下更深的子代理文件不参与发现。`--tools` 保留原技能行为，将工具调用摘要附在对应助手消息中。
+JSONL records have a `type` of `user` or `assistant`. Text comes from the string or `text` blocks in `message.content`. The reader skips `isSidechain`, command echoes, and known system injections. Subagent files in deeper directories are excluded from discovery. `--tools` preserves the original skill behavior of appending tool-call summaries to the corresponding assistant message.
 
-`history.jsonl` 使用 `{sessionId,display,project,timestamp}`，时间为毫秒。索引缺失时可以从正文恢复提问搜索，项目可回退到首条记录的 `cwd`。
+`history.jsonl` uses `{sessionId,display,project,timestamp}` with millisecond timestamps. Without the index, prompt searches can fall back to conversation text, and the project can fall back to the first record's `cwd`.
 
 ## Codex
 
-`session_meta` 提供项目与开始时间，开始时间优先读取明确时间戳，文件名作为兜底。读取 `event_msg` 的 `user_message`／`agent_message`，也读取 `response_item` 的用户／助手 `message`。两种表示按角色和正文一对一配对，避免重复显示，同时保留重复同文提问的实际次数以及只有原始响应的回答。
+`session_meta` supplies the project and start time. An explicit timestamp takes precedence over the filename fallback. The reader handles `user_message` / `agent_message` in `event_msg`, as well as user / assistant `message` records in `response_item`. The two representations are matched one-to-one by role and text to avoid duplicates while preserving repeated identical prompts and answers recorded only as raw responses.
 
-工具调用保持原始顺序，需 `--tools` 才显示。`analysis` 通道和已知环境注入不会出现在正文中；普通 XML／HTML 提问不会因以 `<` 开头而被整体丢弃。目前默认发现范围是 `sessions`，不扫描任意日志、浏览器缓存或其他导出目录。
+Tool calls retain their original order and appear only with `--tools`. The `analysis` channel and known environment injections are excluded from conversation text. Ordinary XML / HTML prompts are not discarded just because they start with `<`. Discovery currently scans `sessions`, not arbitrary logs, browser caches, or other export directories.
 
 ## Grok
 
-Grok 1.0.41 随附的 `user-guide/17-sessions.md` 将 `updates.jsonl` 定义为恢复会话使用的权威记录，`15-agent-mode.md` 描述 ACP 更新结构：
+The `user-guide/17-sessions.md` bundled with Grok 1.0.41 identifies `updates.jsonl` as the authoritative record used to restore sessions. `15-agent-mode.md` describes the ACP update structure:
 
 ```text
 method: session/update
 params.update.sessionUpdate: user_message_chunk | agent_message_chunk | tool_call | ...
 params.update.content: {type: text, text: ...}
-timestamp: 毫秒
+timestamp: milliseconds
 ```
 
-读取器拼接相邻文本分片，在角色、提问编号、工具或轮次边界处分开；不展示 `agent_thought_chunk`。工具调用摘要由 `--tools` 控制。`summary.json` 的 `info.id`／`info.cwd`、标题和时间用于列表，正文文件修改时间也参与活动判断。长项目目录的 `.cwd` 文件可以恢复原始路径。
+The reader joins adjacent text chunks and separates them at role, prompt-index, tool, or turn boundaries. It does not show `agent_thought_chunk`. `--tools` controls tool-call summaries. Session lists use `info.id`, `info.cwd`, titles, and times from `summary.json`; the text file's modification time also contributes to activity detection. A `.cwd` file can recover the original path for long project directory names.
 
-不读取 `system_prompt.txt`、`prompt_context.json`、`chat_history.jsonl` 模型上下文或配置凭证。已核对本地 ACP 与官方随附文档；本机样本中的失败会话仅有用户消息，完整助手分片及工具组合由合成测试验证。
+The reader does not use `system_prompt.txt`, `prompt_context.json`, `chat_history.jsonl` model context, or configuration credentials. The local ACP format and bundled official documentation have been checked. Failed sessions in the local sample contain only user messages; complete assistant chunks and tool combinations are covered by synthetic tests.
 
 ## WorkBuddy
 
-原生 JSONL 消息结构为 `type: message`，带 `role`、`sessionId`、`cwd` 和毫秒 `timestamp`。正文块使用 `input_text`／`output_text`；`reasoning`、图片引用、快照及工具结果不作为默认正文。`--tools` 读取 `function_call` 的调用摘要。
+Native JSONL messages have `type: message`, `role`, `sessionId`, `cwd`, and a millisecond `timestamp`. Text blocks use `input_text` / `output_text`. Reasoning, image references, snapshots, and tool results are excluded from default conversation text. `--tools` includes summaries of `function_call` records.
 
-`workbuddy.db` 的 `sessions` 表提供 `custom_title`／`title`、`cwd`、创建和活动时间。`deleted_at` 非空且非零的会话跳过；没有数据库时仍可从正文和 `ai-title` 行读取。只扫描项目下的主 JSONL，不递归读取 `subagents`。已用本机这种 JSONL 与索引格式验证列表和消息解析。
+The `sessions` table in `workbuddy.db` supplies `custom_title` / `title`, `cwd`, and creation and activity times. Sessions with a nonempty, nonzero `deleted_at` are skipped. Without the database, the reader can still use conversation records and `ai-title` rows. It only scans main JSONL files under each project and does not recurse into `subagents`. Session listing and message parsing have been checked against this local JSONL and index format.
 
-## Kimi Code、Desktop 与旧版 CLI
+## Kimi Code, Desktop, and the older CLI
 
-新版 Code 默认根为 `~/.kimi-code`。已确认的协议版本为 wire 1.4：
+Newer Code versions use `~/.kimi-code` by default. The verified protocol version is wire 1.4:
 
 ```text
 session_index.jsonl
-sessions/<工作目录桶>/<id>/state.json
-sessions/<工作目录桶>/<id>/agents/main/wire.jsonl
+sessions/<working-directory-bucket>/<id>/state.json
+sessions/<working-directory-bucket>/<id>/agents/main/wire.jsonl
 ```
 
-读取 `context.append_message` 和 `context.append_loop_event` 中的文本，拼接流式回答，去重同时写入 prompt 与 context 的用户消息。不会从 `llm.request` 提取请求头或模型系统提示词；思考、标题生成任务和子代理不混入主会话。
+The reader extracts text from `context.append_message` and `context.append_loop_event`, joins streamed answers, and deduplicates user messages recorded in both prompt and context events. It does not extract request headers or model system prompts from `llm.request`. Reasoning, title-generation tasks, and subagents are excluded from main sessions.
 
-macOS Desktop 已确认的数据根为：
+The verified macOS Desktop data root is:
 
 ```text
 ~/Library/Application Support/kimi-desktop/
   daimon-share/daimon/runtime/kimi-code/home/
 ```
 
-其他系统使用相同应用目录布局，并从指定的 `--home` 推导常见用户数据路径；迁移位置通过 `--source-root` 指定。Windows／Linux 的应用实际安装目录可能不同，需要显式指定。
+The adapter also tries the same application layout under common user data directories on other systems, derived from `--home`. Specify relocated data with `--source-root`. Actual Windows / Linux application directories may differ and may need an explicit root.
 
-旧版 `~/.kimi` 支持 `kimi.json` 的工作目录索引，以及 `sessions/<工作目录哈希>/<id>/context.jsonl` 和旧的 `<id>.jsonl`。正文是 `role`／`content`，没有逐条时间的旧格式会输出空消息时间。索引中的任意路径不能把正文读取重定向到来源目录外。
+The older `~/.kimi` layout supports the working-directory index in `kimi.json`, `sessions/<working-directory-hash>/<id>/context.jsonl`, and older `<id>.jsonl` files. Messages use `role` / `content`; older formats without per-message times return null message timestamps. Arbitrary paths in the index cannot redirect conversation reads outside the source directory.
 
-现代格式对照 [Kimi Code 会话文档](https://github.com/MoonshotAI/kimi-code/blob/be7d5f5fea7800778e4660cd5f36780ba783bddd/docs/zh/guides/sessions.md) 及该提交的 session-store／context-projector；已用本机 Desktop 会话核对结构。完整回答、工具与中断组合使用合成测试，不把本机仅有用户和工具的样本当成完整助手验证。
+The modern format was checked against the [Kimi Code session documentation](https://github.com/MoonshotAI/kimi-code/blob/be7d5f5fea7800778e4660cd5f36780ba783bddd/docs/zh/guides/sessions.md), that commit's session-store / context-projector, and local Desktop records. Complete answers, tool activity, and interruption cases use synthetic tests; the local sample containing only user and tool messages does not establish full assistant-output validation.
 
 ## ZCode
 
-已确认的 ZCode 0.16.3／0.16.5 会话数据库包含：
+The verified ZCode 0.16.3 / 0.16.5 session database contains:
 
-- `session`：`id`、`directory`、`title`、`time_created`、`time_updated`、可选 `parent_id`。
-- `message`：`id`、`session_id`、`data`、`sequence`、`time_created`；`data` 中保存角色和可见性。
-- `part`：`message_id`、`session_id`、`data`、`sequence`、`time_created`；`data` 中保存文本或工具调用。
+- `session`: `id`, `directory`, `title`, `time_created`, `time_updated`, and optional `parent_id`.
+- `message`: `id`, `session_id`, `data`, `sequence`, and `time_created`; `data` holds role and visibility.
+- `part`: `message_id`, `session_id`, `data`, `sequence`, and `time_created`; `data` holds text or tool calls.
 
-消息按 sequence 与时间读取。`parent_id` 非空的子代理、synthetic 记录和 `transcriptVisibility: hidden` 的内部消息跳过；`reasoning` 不显示。`--tools` 可显示工具调用摘要。本机 CLI 与桌面产生的这套共享存储已验证。
+Messages are read in sequence and time order. Subagents with a nonempty `parent_id`, synthetic records, and internal messages with `transcriptVisibility: hidden` are skipped. Reasoning is hidden; `--tools` can show tool-call summaries. This shared storage format has been verified with local CLI and desktop records.
 
-不从 `cli/rollout` 的 `model_io` 请求转储恢复历史，避免将请求头、重复模型输入和完整系统上下文混入聊天。`v2/tasks-index.sqlite` 是任务索引，不作为正文来源。
+The reader does not reconstruct history from `model_io` request dumps in `cli/rollout`, avoiding request headers, repeated model inputs, and full system context in conversation output. `v2/tasks-index.sqlite` is a task index, not a source of conversation text.
 
-## TRAE、TRAE SOLO 与 TraeWork
+## TRAE, TRAE SOLO, and TraeWork
 
-CLI 支持旧版 `state.vscdb` 的 `ItemTable`，严格匹配：
+The CLI supports `ItemTable` in legacy `state.vscdb` databases, matching only:
 
 ```text
-memento/icube-ai-agent-storage[-用户id]
-memento/icube-ai-ng-chat-storage-用户id
+memento/icube-ai-agent-storage[-user-id]
+memento/icube-ai-ng-chat-storage-user-id
 value.list[]: {sessionId,title,createdAt,updatedAt,messages}
 message: {role,content,parsedQuery,timestamp,status}
 ```
 
-时间为毫秒。`content` 是字符串；`parsedQuery` 只提取字符串片段，不把 mention 对象、附件或任意缓存当成正文。删除消息和非用户／助手角色跳过，项目由同目录 `workspace.json` 恢复。
+Times are in milliseconds. `content` is a string; only string fragments in `parsedQuery` are included. Mention objects, attachments, and arbitrary caches are not treated as conversation text. Deleted messages and roles other than user / assistant are skipped. The project is recovered from `workspace.json` in the same directory.
 
-默认尝试 macOS `~/Library/Application Support`、Windows `~/AppData/Roaming`、Linux `~/.config` 下的 `Trae`、`Trae CN`、`TRAE SOLO`、`TRAE SOLO CN` 数据目录，也接受 `--source-root`。旧格式依据本机安装包的 Memento 读写代码核对，并通过合成 SQLite 测试；本机当前应用没有该格式的实际会话正文，不能宣称旧缓存的真机正文恢复已验证。
+Default roots try `Trae`, `Trae CN`, `TRAE SOLO`, and `TRAE SOLO CN` under macOS `~/Library/Application Support`, Windows `~/AppData/Roaming`, and Linux `~/.config`. `--source-root` is also supported. The legacy format was checked against the installed application's Memento read/write code and synthetic SQLite tests. The current local application has no real conversation text in that legacy format, so real-session recovery from those caches has not been verified.
 
-当前 SOLO／TraeWork 的 `ModularData/ai-agent/database.db` 并非本适配器支持的标准 SQLite。CLI 检测到它会提示限制；不尝试解密、修改数据库或把空列表解释为没有聊天。支持 computer-use 的技能宿主可按 [TRAE 只读界面流程](trae-ui.md) 从应用的历史任务列表读取已有会话，当前 TraeWork CN 已验证这一渠道。没有界面工具的普通终端环境，仅有旧版缓存读取能力。
+Current SOLO / TraeWork `ModularData/ai-agent/database.db` storage is not a standard SQLite format supported by this adapter. When detected, the CLI explains the limitation. It does not attempt decryption, modify the database, or treat an empty list as proof that no conversations exist. A skill host with computer-use tools can follow the [TRAE UI workflow](trae-ui.md) to read existing conversations from the application's history list. This route has been verified with the current TraeWork CN application. A plain terminal without UI tools only supports the legacy caches.
 
-TRAE 的界面读取与 CLI 是不同渠道。界面流程不会给 CLI 增加数据库兼容，也没有假定未验证的 Markdown 导出格式。
+The TRAE UI workflow and CLI are separate reading channels. The UI workflow does not add CLI database compatibility or assume an unverified Markdown export format.

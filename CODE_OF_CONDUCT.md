@@ -1,53 +1,55 @@
-# 贡献者公约行为准则
+# Contributor Covenant Code of Conduct
 
-## 我们的承诺
+**English** | [简体中文](CODE_OF_CONDUCT.zh-CN.md)
 
-作为社区成员、贡献者和维护者，我们承诺让每个人都能在不受骚扰的环境中参与项目，不因年龄、体型、显性或隐性残障、族裔、性特征、性别认同与表达、经验、教育、社会经济状况、国籍、外貌、种族、宗教、性取向或性身份而区别对待。
+## Our pledge
 
-我们承诺以促进开放、友好、多元、包容和健康社区的方式行动与交流。
+As community members, contributors, and maintainers, we pledge to make participation in this project a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, experience, education, socioeconomic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
-## 我们的标准
+We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
 
-有助于营造积极环境的行为包括：
+## Our standards
 
-- 对他人保持同理心和善意；
-- 尊重不同的观点、意见和经历；
-- 提供并坦然接受建设性反馈；
-- 为自己的错误承担责任，向受影响的人道歉，并从中学习。
+Examples of behavior that contributes to a positive environment include:
 
-不可接受的行为包括：
+- Showing empathy and kindness toward others.
+- Respecting differing opinions, viewpoints, and experiences.
+- Giving and gracefully accepting constructive feedback.
+- Taking responsibility for mistakes, apologizing to those affected, and learning from the experience.
 
-- 使用性化语言或图像，以及任何形式的性关注或性追求；
-- 恶意挑衅、侮辱、贬损性评论，以及针对个人或政治立场的人身攻击；
-- 公开或私下骚扰；
-- 未经明确许可发布他人的私人信息，例如住址或邮箱；
-- 其他在专业环境中通常会被认为不合适的行为。
+Examples of unacceptable behavior include:
 
-## 执行责任
+- Sexualized language or imagery, and sexual attention or advances of any kind.
+- Trolling, insulting or derogatory comments, and personal or political attacks.
+- Public or private harassment.
+- Publishing another person's private information, such as a physical or email address, without explicit permission.
+- Other conduct that would reasonably be considered inappropriate in a professional setting.
 
-项目维护者负责解释并执行可接受行为标准，并可针对其认为不合适、具有威胁性、冒犯性或有害的行为采取适当、公平的纠正措施。
+## Enforcement responsibilities
 
-维护者有权也有责任移除、编辑或拒绝不符合本行为准则的评论、提交、代码、Wiki 编辑、Issue 和其他贡献，并会在适当情况下说明审核决定的原因。
+Project maintainers interpret and enforce these standards. They may take appropriate and fair corrective action in response to behavior they consider inappropriate, threatening, offensive, or harmful.
 
-## 适用范围
+Maintainers have the right and responsibility to remove, edit, or reject comments, commits, wiki edits, issues, and other contributions that do not follow this code of conduct. They will explain moderation decisions when appropriate.
 
-本行为准则适用于所有社区空间，也适用于个人在公共场合正式代表本社区时的行为。例如使用项目官方邮箱、通过官方社交账号发帖，或作为指定代表参加线上或线下活动。
+## Scope
 
-## 执行方式
+This code of conduct applies in all community spaces and when someone officially represents the community in public. Examples include using an official project email address, posting through an official social media account, or acting as a designated representative at an online or offline event.
 
-如遇到辱骂、骚扰或其他不可接受的行为，请发邮件至 [2705704576@qq.com](mailto:2705704576@qq.com) 私下报告，主题注明 `read-chat-history 行为准则`。维护者会公平审查，并尊重报告者的隐私与安全。
+## Reporting concerns
 
-软件安全漏洞请使用[安全策略](SECURITY.md)中的私密报告渠道。
+Report abuse, harassment, or other unacceptable behavior privately to [2705704576@qq.com](mailto:2705704576@qq.com), with the subject `read-chat-history Code of Conduct`. Maintainers will review reports fairly and respect the reporter's privacy and safety.
 
-## 执行指南
+Report software vulnerabilities through the private channels in the [security policy](SECURITY.md).
 
-维护者会根据以下社区影响分级，决定对违反本行为准则的行为采取何种措施：
+## Enforcement guidelines
 
-1. **纠正**：私下书面提醒，并说明违反的规则。
-2. **警告**：发出警告，并说明继续该行为的后果。
-3. **临时禁止**：暂时禁止参与社区互动或贡献。
-4. **永久禁止**：永久禁止在社区中进行任何公开互动。
+Maintainers consider the impact on the community when choosing a response:
 
-## 来源
+1. **Correction:** A private written reminder explaining the violated rule.
+2. **Warning:** A warning that explains the consequences of continued behavior.
+3. **Temporary ban:** A temporary ban on community interaction or contributions.
+4. **Permanent ban:** A permanent ban on public interaction in the community.
 
-本行为准则改编自 [Contributor Covenant](https://www.contributor-covenant.org/zh-cn/version/2/1/code_of_conduct.html) 2.1 版。
+## Attribution
+
+This code of conduct is adapted from [Contributor Covenant](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html), version 2.1.

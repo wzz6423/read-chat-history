@@ -1,26 +1,28 @@
-# 安全策略
+# Security Policy
 
-## 支持范围
+**English** | [简体中文](SECURITY.zh-CN.md)
 
-当前项目处于初始开发阶段，安全修复以 `main` 分支为准，尽力维护。尚未承诺历史版本维护或固定响应时限。
+## Support scope
 
-## 漏洞报告
+The project is in its initial development stage. Security fixes target `main` on a best-effort basis. There is no commitment to maintaining older versions or to a fixed response time.
 
-请通过 [GitHub 私密漏洞报告](https://github.com/wzz6423/read-chat-history/security/advisories/new) 提交安全问题，不要在公开 Issue、PR 或讨论中披露未修复漏洞或个人聊天记录。
+## Reporting a vulnerability
 
-报告请尽量包含：
+Use [GitHub Private Vulnerability Reporting](https://github.com/wzz6423/read-chat-history/security/advisories/new) to report security issues. Do not disclose unresolved vulnerabilities or personal conversations in public issues, PRs, or discussions.
 
-- 受影响的 commit、Node.js 版本和操作系统；
-- 涉及的来源工具、数据格式和安全影响；
-- 复现命令，以及不含真实隐私的最小合成样例；
-- 已知的缓解措施。
+Where possible, include:
 
-请移除真实凭据和个人数据。如果凭据已经泄漏，应撤销或轮换。如果 GitHub 私密报告入口不可用，可发邮件至 [2705704576@qq.com](mailto:2705704576@qq.com)，主题注明 `read-chat-history 安全报告`。
+- The affected commit, Node.js version, and operating system.
+- The source client, data format, and security impact.
+- Reproduction commands and a minimal synthetic example without private data.
+- Any known mitigations.
 
-维护者会在能力范围内调查报告，并与报告者协商修复和公开披露安排。
+Remove real credentials and personal information. Revoke or rotate credentials that have already been exposed. If GitHub's private reporting form is unavailable, email [2705704576@qq.com](mailto:2705704576@qq.com) with the subject `read-chat-history Security Report`.
 
-## 数据边界
+Maintainers will investigate within their available capacity and coordinate fixes and public disclosure with the reporter.
 
-read-chat-history 的命令行脚本只在本机读取会话文件或以只读方式查询会话数据库，不上传记录，也不调用远程 AI 接口。
+## Data boundaries
 
-输出可能包含提示词、回答、项目路径和工具调用。把输出交给另一个 AI 工具后，其处理方式由该工具和你的配置决定。请只读取有权访问的记录，并在分享输出前移除敏感信息。
+The read-chat-history CLI only reads local session files or queries session databases in read-only mode. It does not upload records or call remote AI APIs.
+
+Output may contain prompts, answers, project paths, and tool calls. When you pass that output to another AI tool, its handling depends on that tool and your configuration. Read only records you are authorized to access, and remove sensitive information before sharing output.

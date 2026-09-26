@@ -15,11 +15,11 @@
     "test": "node --test tests/*.test.js .github/tests/*.test.js"
   },
   "files": [
-    "SKILL.md",
+    "*.md",
     "scripts/",
     "references/",
-    "README.md",
-    "LICENSE.md"
+    ".github/PULL_REQUEST_TEMPLATE.md",
+    ".github/project-automation.json"
   ],
   "repository": {
     "type": "git",
