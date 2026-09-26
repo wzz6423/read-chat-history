@@ -6,7 +6,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { createHash } = require('node:crypto');
-const { collect, messages } = require('../scripts/kimi.js');
+const { collect, messages } = require('../skills/chat-history/scripts/kimi.js');
 
 function fixture(t) {
   const home = fs.mkdtempSync(path.join(os.tmpdir(), 'chat-history-kimi-'));

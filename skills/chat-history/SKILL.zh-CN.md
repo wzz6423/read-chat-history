@@ -79,16 +79,19 @@ TRAE SOLO／TraeWork：如果 CLI 提示原生数据库不支持，且宿主提�
 
 ## 安装
 
-以技能名称 `chat-history` 安装仓库，保持脚本和参考文档的相对路径：
+克隆仓库后，将其中的 `skills/chat-history/` 复制到对应工具的技能目录，保持脚本和参考文档的相对路径：
 
 ```bash
+git clone https://github.com/wzz6423/read-chat-history.git
+cd read-chat-history
+
 # Claude Code
 mkdir -p ~/.claude/skills
-git clone https://github.com/wzz6423/read-chat-history.git ~/.claude/skills/chat-history
+cp -R skills/chat-history ~/.claude/skills/
 
 # Codex（支持 SKILL.md 格式的版本）
 mkdir -p ~/.codex/skills
-git clone https://github.com/wzz6423/read-chat-history.git ~/.codex/skills/chat-history
+cp -R skills/chat-history ~/.codex/skills/
 ```
 
 选择对应工具的安装位置，已有同名目录时先检查现有安装再更新。宿主自动加载 [SKILL.md](SKILL.md)，本文件提供对应的中文说明。

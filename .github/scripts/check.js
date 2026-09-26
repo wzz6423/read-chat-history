@@ -7,6 +7,7 @@ const { spawnSync } = require('node:child_process');
 const { contract, projectContract, labelCatalog, sections } = require('./metadata.js');
 
 const root = path.resolve(__dirname, '../..');
+const skillDirectory = 'skills/chat-history';
 
 function filesUnder(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name)).flatMap(entry => {
@@ -19,20 +20,20 @@ function filesUnder(directory) {
 
 function check() {
   const errors = [];
-  for (const file of ['README.md', 'CODE_OF_CONDUCT.md', 'CONTRIBUTING.md', 'LICENSE.md', 'SECURITY.md', 'SKILL.md', 'package.json']) {
+  for (const file of ['README.md', 'CODE_OF_CONDUCT.md', 'CONTRIBUTING.md', 'LICENSE.md', 'SECURITY.md', `${skillDirectory}/SKILL.md`, 'package.json']) {
     if (!fs.existsSync(path.join(root, file))) errors.push(`缺少必备文件：${file}`);
   }
   if (errors.length) return errors;
 
-  const skill = fs.readFileSync(path.join(root, 'SKILL.md'), 'utf8');
+  const skill = fs.readFileSync(path.join(root, skillDirectory, 'SKILL.md'), 'utf8');
   const frontmatter = skill.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/)?.[1];
   if (!frontmatter || !/^name:\s*["']?chat-history["']?\s*$/m.test(frontmatter) || !/^description:\s*\S/m.test(frontmatter)) {
-    errors.push('SKILL.md 须声明 name: chat-history 与非空 description frontmatter。');
+    errors.push(`${skillDirectory}/SKILL.md 须声明 name: chat-history 与非空 description frontmatter。`);
   }
   const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
   if (Object.keys(pkg.dependencies || {}).length) errors.push('运行时应只使用 Node.js 内置模块，不得引入 npm 运行时依赖。');
 
-  const sourceFiles = ['scripts', 'tests', '.github'].flatMap(directory => {
+  const sourceFiles = [`${skillDirectory}/scripts`, 'tests', '.github'].flatMap(directory => {
     const full = path.join(root, directory);
     if (!fs.existsSync(full)) {
       errors.push(`缺少源码或测试目录：${directory}`);

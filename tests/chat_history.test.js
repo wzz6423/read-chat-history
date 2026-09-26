@@ -9,7 +9,7 @@ const { pathToFileURL } = require('node:url');
 const { spawnSync } = require('node:child_process');
 const { DatabaseSync } = require('node:sqlite');
 
-const cli = path.resolve(__dirname, '../scripts/chat_history.js');
+const cli = path.resolve(__dirname, '../skills/chat-history/scripts/chat_history.js');
 const JAN = '2026-01-02T03:04:05.000Z';
 const FEB = '2026-02-02T03:04:05.000Z';
 const codexId = 'c0de0000-1111-2222-3333-444444444444';

@@ -8,7 +8,7 @@
     "node": ">=22.13.0"
   },
   "bin": {
-    "chat-history": "scripts/chat_history.js"
+    "chat-history": "skills/chat-history/scripts/chat_history.js"
   },
   "scripts": {
     "check": "node .github/scripts/check.js",
@@ -16,8 +16,7 @@
   },
   "files": [
     "*.md",
-    "scripts/",
-    "references/",
+    "skills/chat-history/",
     ".github/PULL_REQUEST_TEMPLATE.md",
     ".github/project-automation.json"
   ],

@@ -20,14 +20,14 @@ Use **Node.js 22.13.0 or newer**. The scripts use built-in Node.js modules and r
 ```bash
 git clone https://github.com/wzz6423/read-chat-history.git
 cd read-chat-history
-node scripts/chat_history.js --help
+node skills/chat-history/scripts/chat_history.js --help
 npm run check
 npm test
 ```
 
 `npm test` uses Node.js's built-in test runner. Tests must use synthetic data in temporary directories and isolate sources with `--home` or `--source-root` so they do not read a developer's real conversations.
 
-Read the relevant parsers and existing tests before changing them, and reuse existing format-handling code. New sources should cover normal records, missing or corrupt records, source isolation, and reading limits. Update [SKILL.md](SKILL.md) and the [source reference](references/providers.md) as well. Keep changes focused and avoid unrelated refactoring.
+Read the relevant parsers and existing tests before changing them, and reuse existing format-handling code. New sources should cover normal records, missing or corrupt records, source isolation, and reading limits. Update [SKILL.md](skills/chat-history/SKILL.md) and the [source reference](skills/chat-history/references/providers.md) as well. Keep changes focused and avoid unrelated refactoring.
 
 Maintain both documentation versions together: the unsuffixed `.md` file is English, and `.zh-CN.md` is Simplified Chinese. Keep their language links, examples, support limits, and validation claims consistent. The English [LICENSE.md](LICENSE.md) is the authoritative license; its [Chinese guide](LICENSE.zh-CN.md) is explanatory.
 

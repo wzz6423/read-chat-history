@@ -79,16 +79,19 @@ For TRAE SOLO / TraeWork, if the CLI reports unsupported native storage and the 
 
 ## Installation
 
-Install the repository under the skill name `chat-history`, preserving the relative paths of the script and reference files:
+Clone the repository, then copy its `skills/chat-history/` directory to the appropriate tool's skill directory, preserving the relative paths of the script and reference files:
 
 ```bash
+git clone https://github.com/wzz6423/read-chat-history.git
+cd read-chat-history
+
 # Claude Code
 mkdir -p ~/.claude/skills
-git clone https://github.com/wzz6423/read-chat-history.git ~/.claude/skills/chat-history
+cp -R skills/chat-history ~/.claude/skills/
 
 # Codex versions that support SKILL.md
 mkdir -p ~/.codex/skills
-git clone https://github.com/wzz6423/read-chat-history.git ~/.codex/skills/chat-history
+cp -R skills/chat-history ~/.codex/skills/
 ```
 
 Choose the appropriate location and check any existing installation before updating it. Hosts load `SKILL.md`; [SKILL.zh-CN.md](SKILL.zh-CN.md) provides the corresponding Chinese documentation.

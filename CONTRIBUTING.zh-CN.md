@@ -20,14 +20,14 @@
 ```bash
 git clone https://github.com/wzz6423/read-chat-history.git
 cd read-chat-history
-node scripts/chat_history.js --help
+node skills/chat-history/scripts/chat_history.js --help
 npm run check
 npm test
 ```
 
 `npm test` 运行 Node.js 内置测试器。测试必须使用临时目录中的合成数据，并通过 `--home` 或 `--source-root` 隔离来源，避免读取开发者的真实聊天记录。
 
-修改前先阅读相关解析器和现有测试，尽量复用格式处理逻辑。新增来源需要覆盖正常记录、缺失或损坏记录、来源隔离和读取范围；同时更新[技能说明](SKILL.zh-CN.md)与[来源说明](references/providers.zh-CN.md)。保持改动聚焦，不混入无关重构。
+修改前先阅读相关解析器和现有测试，尽量复用格式处理逻辑。新增来源需要覆盖正常记录、缺失或损坏记录、来源隔离和读取范围；同时更新[技能说明](skills/chat-history/SKILL.zh-CN.md)与[来源说明](skills/chat-history/references/providers.zh-CN.md)。保持改动聚焦，不混入无关重构。
 
 文档需同步维护两种语言：无后缀的 `.md` 为英文，`.zh-CN.md` 为简体中文。语言切换链接、示例、支持限制和验证结论应保持一致。许可证以英文 [LICENSE.md](LICENSE.md) 为准，[中文说明](LICENSE.zh-CN.md)用于帮助理解。
 
