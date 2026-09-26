@@ -70,7 +70,7 @@ function check() {
     if (!template.has(section)) errors.push(`PR 模板缺少 ${section}。`);
   }
   for (const name of ['bug_report.yml', 'feature_request.yml']) {
-    const form = fs.readFileSync(path.join(root, '.github/ISSUE_TEMPLATE', name), 'utf8');
+    const form = fs.readFileSync(path.join(root, '.github/ISSUE_TEMPLATE', name), 'utf8').replace(/\r\n/g, '\n');
     for (const area of contract.issueAreas) {
       if (!form.includes(`- ${area.name}\n`)) errors.push(`${name} 缺少所属范围选项：${area.name}`);
     }
