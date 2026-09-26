@@ -37,7 +37,7 @@ Before committing, run the relevant checks and remove generated databases, logs,
 
 Create branches from the latest `main`, with one clear goal per PR. Use `type/short-description`, such as `fix/kimi-message-order` or `docs/source-paths`. Automation also accepts `codex/` and `dependabot/` prefixes.
 
-Commit messages and PR titles follow [Conventional Commits](https://www.conventionalcommits.org/), using English type names:
+Write commit messages and PR titles in English and follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```text
 feat(grok): support local session history
@@ -49,7 +49,7 @@ Allowed types are `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `c
 
 ## Pull requests
 
-Target `main` and complete the [PR template](.github/PULL_REQUEST_TEMPLATE.md). The body may be in English or Chinese, but retain these section headings:
+Target `main` and complete the [PR template](.github/PULL_REQUEST_TEMPLATE.md). Write the body in English and retain these section headings:
 
 | Heading | Required content |
 | --- | --- |
@@ -60,7 +60,7 @@ Target `main` and complete the [PR template](.github/PULL_REQUEST_TEMPLATE.md). 
 
 If AI assisted with a contribution, you may record the tool and its role under `AI Attribution`. Any `Co-authored-by` attribution must be accurate. Contributors remain responsible for understanding the changes and verifying the results.
 
-`Validation` may contain several groups. Keep the English headings, field names, and status values; other text may be in either language. Do not report unverified compatibility as passing.
+`Validation` may contain several groups. Keep the headings, field names, and status values shown in the template. Do not report unverified compatibility as passing.
 
 Automation derives type labels from the title, assigns the PR to `wzz6423`, and adds it to [read-chat-history Development (Project #3)](https://github.com/users/wzz6423/projects/3). Closed PRs move to `Done`; reopened PRs return to the status for their type. You do not need to repeat Project or type configuration in the body.
 

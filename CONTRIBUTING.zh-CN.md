@@ -37,7 +37,7 @@ npm test
 
 从最新的 `main` 创建分支，每个 PR 处理一个明确目标。分支使用 `type/简短描述`，例如 `fix/kimi-message-order`、`docs/source-paths`；自动化也接受 `codex/` 和 `dependabot/` 前缀。
 
-提交信息和 PR 标题采用 [Conventional Commits](https://www.conventionalcommits.org/) 格式，类型名使用英文：
+提交信息和 PR 标题全部使用英文，并采用 [Conventional Commits](https://www.conventionalcommits.org/) 格式：
 
 ```text
 feat(grok): support local session history
@@ -49,7 +49,7 @@ docs: clarify local data access
 
 ## Pull Request
 
-向 `main` 提交 PR，填写[仓库模板](.github/PULL_REQUEST_TEMPLATE.md)。正文可以使用中文或英文，保留以下节标题：
+向 `main` 提交 PR，填写[仓库模板](.github/PULL_REQUEST_TEMPLATE.md)。正文全部使用英文，保留以下节标题：
 
 | 节标题 | 需要说明的内容 |
 | --- | --- |
@@ -60,7 +60,7 @@ docs: clarify local data access
 
 如使用 AI 协助，可在 `AI Attribution` 中记录工具及参与范围；若使用 `Co-authored-by`，请保证署名真实。贡献者仍需理解修改并核实测试结果。
 
-`Validation` 可以包含多组记录。保留英文标题、字段名和状态值，其余内容可使用中文或英文；不要把尚未验证的兼容性写成已通过。
+`Validation` 可以包含多组记录。保留模板中的标题、字段名和状态值；不要把尚未验证的兼容性写成已通过。
 
 仓库自动化根据标题推导类型标签，将 PR 分配给 `wzz6423`，并加入 [read-chat-history Development（Project #3）](https://github.com/users/wzz6423/projects/3)。PR 关闭后同步为 `Done`，重新打开时恢复对应类型的状态。无需在正文重复配置 Project 或 PR 类型。
 

@@ -1,7 +1,7 @@
 {
   "name": "read-chat-history",
   "version": "0.1.0",
-  "description": "在本地列出、搜索和读取多种 AI 工具的历史会话",
+  "description": "Search and read local chat history from Claude Code, Codex, Grok, WorkBuddy, Kimi, ZCode, and TRAE.",
   "license": "PolyForm-Noncommercial-1.0.0",
   "type": "commonjs",
   "engines": {

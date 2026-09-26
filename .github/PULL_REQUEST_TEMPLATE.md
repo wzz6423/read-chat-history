@@ -1,6 +1,6 @@
 ## Summary
 
-<!-- Describe the problem and resulting behavior. English or Chinese is welcome. / 说明解决的问题和变更后的行为；正文可用中文或英文。 -->
+<!-- Describe the problem and resulting behavior. Write the title and body in English. / 说明解决的问题和变更后的行为；标题和正文全部使用英文。 -->
 
 ## Validation
 
