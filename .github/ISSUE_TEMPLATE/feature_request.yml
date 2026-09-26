@@ -1,0 +1,43 @@
+name: 功能建议
+description: 提出新的会话来源支持或明确的功能改进。
+title: '[Feature] '
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: 所属范围
+      options:
+        - 功能开发
+        - 缺陷修复
+        - CI 与构建
+        - 文档
+        - 社区与讨论
+      default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 要解决的问题
+      description: 描述具体使用场景和当前的困难。
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议的方案
+      description: 新来源支持请说明客户端、版本和已知存储或导出格式，只提供公开文档或合成样本。
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 考虑过的替代方案
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 提交前检查
+      options:
+        - label: 我已搜索已有 Issue，且内容中不含真实会话或个人数据。
+          required: true

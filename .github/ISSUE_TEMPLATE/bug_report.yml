@@ -1,0 +1,66 @@
+name: 缺陷报告
+description: 报告可复现的会话读取或工具问题。
+title: '[Bug] '
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 请先搜索已有 Issue。只提供脱敏或合成样本，不要上传真实聊天记录、账号凭据或个人目录。
+  - type: dropdown
+    id: area
+    attributes:
+      label: 所属范围
+      options:
+        - 功能开发
+        - 缺陷修复
+        - CI 与构建
+        - 文档
+        - 社区与讨论
+      default: 1
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 环境与版本
+      description: 操作系统、Node.js 版本、工具版本或提交 SHA。
+      placeholder: macOS 15 / Node.js 24 / commit abc1234
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: 会话来源
+      description: 客户端名称与版本；如使用导出文件，请说明导出格式。
+      placeholder: Claude Code、Codex、Grok、WorkBuddy、Kimi、ZCode 或 Trae
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤
+      description: 给出命令与最小步骤，并用占位内容替换私人路径和会话。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期行为
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际行为
+      description: 可附脱敏后的报错和合成数据。
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 提交前检查
+      options:
+        - label: 我已搜索已有 Issue。
+          required: true
+        - label: 我已移除真实会话、令牌、邮箱和其他个人信息。
+          required: true

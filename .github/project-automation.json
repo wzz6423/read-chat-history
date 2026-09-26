@@ -1,0 +1,28 @@
+{
+  "project": {
+    "owner": "wzz6423",
+    "number": 3,
+    "title": "read-chat-history Development"
+  },
+  "statusField": "Status",
+  "defaultStatus": "Inbox",
+  "closedStatus": "Done",
+  "labelStatus": [
+    { "label": "area:feature", "status": "Feature Development" },
+    { "label": "area:bug-fix", "status": "Bug Fix" },
+    { "label": "area:ci-build", "status": "CI & Build" },
+    { "label": "area:docs", "status": "Documentation" },
+    { "label": "area:community", "status": "Community & Discussion" },
+    { "label": "enhancement", "status": "Feature Development" },
+    { "label": "performance", "status": "Feature Development" },
+    { "label": "refactor", "status": "Feature Development" },
+    { "label": "style", "status": "Feature Development" },
+    { "label": "bug", "status": "Bug Fix" },
+    { "label": "revert", "status": "Bug Fix" },
+    { "label": "ci", "status": "CI & Build" },
+    { "label": "build", "status": "CI & Build" },
+    { "label": "test", "status": "CI & Build" },
+    { "label": "chore", "status": "CI & Build" },
+    { "label": "documentation", "status": "Documentation" }
+  ]
+}

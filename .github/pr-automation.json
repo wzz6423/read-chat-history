@@ -1,0 +1,28 @@
+{
+  "assignee": "wzz6423",
+  "branchPrefixes": ["feat", "fix", "docs", "style", "refactor", "perf", "test", "chore", "build", "ci", "revert", "codex", "dependabot"],
+  "types": [
+    { "type": "feat", "label": "enhancement", "color": "a2eeef", "description": "新增功能或功能建议" },
+    { "type": "fix", "label": "bug", "color": "d73a4a", "description": "缺陷修复" },
+    { "type": "docs", "label": "documentation", "color": "0075ca", "description": "文档与使用说明" },
+    { "type": "style", "label": "style", "color": "c5def5", "description": "不改变行为的格式调整" },
+    { "type": "refactor", "label": "refactor", "color": "fbca04", "description": "不改变行为的结构调整" },
+    { "type": "perf", "label": "performance", "color": "0e8a16", "description": "性能改进" },
+    { "type": "test", "label": "test", "color": "bfd4f2", "description": "测试用例与测试工具" },
+    { "type": "chore", "label": "chore", "color": "ededed", "description": "日常维护" },
+    { "type": "build", "label": "build", "color": "5319e7", "description": "构建与打包" },
+    { "type": "ci", "label": "ci", "color": "1d76db", "description": "持续集成与自动化" },
+    { "type": "revert", "label": "revert", "color": "b60205", "description": "撤销已有变更" }
+  ],
+  "issueKinds": [
+    { "prefix": "[Bug]", "label": "bug" },
+    { "prefix": "[Feature]", "label": "enhancement" }
+  ],
+  "issueAreas": [
+    { "name": "功能开发", "label": "area:feature", "color": "0e8a16", "description": "功能开发" },
+    { "name": "缺陷修复", "label": "area:bug-fix", "color": "b60205", "description": "缺陷调查与修复" },
+    { "name": "CI 与构建", "label": "area:ci-build", "color": "1d76db", "description": "CI、构建与打包" },
+    { "name": "文档", "label": "area:docs", "color": "0075ca", "description": "文档与说明" },
+    { "name": "社区与讨论", "label": "area:community", "color": "5319e7", "description": "社区流程与讨论" }
+  ]
+}

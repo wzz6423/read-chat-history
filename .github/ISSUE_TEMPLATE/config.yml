@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 私密安全漏洞报告
+    url: https://github.com/wzz6423/read-chat-history/security/advisories/new
+    about: 请通过私密报告提交漏洞，勿公开真实聊天记录、令牌或个人数据。
